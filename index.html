@@ -375,8 +375,8 @@
   /* ---------------- mini calendar (date jump) ---------------- */
   .minical{
     position:absolute; top:100%; left:0; margin-top:10px; z-index:30;
-    width:268px; background:var(--paper); border:1px solid var(--ink); border-radius:8px;
-    padding:14px 14px 15px; box-shadow:0 30px 90px rgba(0,0,0,.30); display:none;
+    width:272px; background:var(--paper); border:1px solid color-mix(in srgb, var(--ink) 18%, transparent); border-radius:16px;
+    padding:15px 15px 16px; box-shadow:0 30px 90px rgba(0,0,0,.30); display:none;
   }
   .minical.open{ display:block; }
   .mc-head{ display:flex; align-items:center; gap:6px; margin-bottom:12px; }
@@ -402,8 +402,9 @@
   /* ---------------- CONFIGURATOR (popover) ---------------- */
   /* configurator: neutral black/white, tucks under the app (z-index below .app) */
   /* configurator: right-side overlay that slides in over the full-window app */
-  .panel{ width:300px; background:#fff; border:1px solid #e4e2de; box-shadow:-8px 0 40px rgba(0,0,0,.18);
-    padding:6px 22px 16px; position:fixed; top:0; right:0; left:auto; z-index:40;
+  .panel{ width:316px; background:rgba(250,250,249,.96); border:0; box-shadow:-14px 0 60px rgba(0,0,0,.24);
+    -webkit-backdrop-filter:blur(24px) saturate(1.25); backdrop-filter:blur(24px) saturate(1.25);
+    padding:6px 15px 20px; position:fixed; top:0; right:0; left:auto; z-index:40;
     border-radius:var(--radius) 0 0 var(--radius);
     opacity:0; visibility:hidden; pointer-events:none; transform:translateX(100%);
     transition:transform .42s cubic-bezier(.16,1,.3,1), opacity .22s ease, visibility 0s linear .42s; }
@@ -415,11 +416,14 @@
 
   /* ===== Dev Mode panel — neutral, distinct from theme ===== */
   /* draggable floating module — no slide; positioned freely via JS */
-  .devpanel{ width:330px; z-index:41; background:#fafafa; border:1px solid #cfcfcf; color:#222;
-    border-radius:9px; box-shadow:0 14px 44px rgba(0,0,0,.32); right:auto; transform:none !important; }
+  .devpanel{ width:336px; z-index:41; background:#f1f1ef; border:1px solid #d4d3cf; color:#222;
+    border-radius:16px; box-shadow:0 18px 54px rgba(0,0,0,.34); right:auto; transform:none !important; }
+  .devpanel .section{ border-top:0; }
+  .devpanel .section.open .sec-body{ background:#fff; border:1px solid #e7e7e4; border-radius:12px;
+    padding:9px 12px 3px; margin-bottom:9px; box-shadow:0 1px 2px rgba(0,0,0,.035); }
   .devpanel .dev-badge{ font-family:var(--mono); font-size:12px; letter-spacing:.18em; color:#0c0; background:#161616;
-    padding:10px 34px 10px 12px; margin:-6px -22px 8px; cursor:move; user-select:none; display:flex; align-items:center; gap:8px;
-    border-radius:8px 8px 0 0; touch-action:none; }
+    padding:11px 34px 11px 14px; margin:-6px -15px 10px; cursor:move; user-select:none; display:flex; align-items:center; gap:8px;
+    border-radius:15px 15px 0 0; touch-action:none; }
   .devpanel .dev-badge::before{ content:"⠿"; opacity:.55; letter-spacing:-2px; }
   .devpanel .panel-scroll{ scrollbar-width:thin; scrollbar-color:#9a9a9a #ededed; }
   .devpanel .panel-scroll::-webkit-scrollbar{ width:9px; display:block; }
@@ -470,7 +474,7 @@
     .kright{ position:relative; align-items:center; }
     .hamburger{ display:inline-flex; }
     .kicons{ display:none; position:absolute; top:calc(100% + 8px); right:0; z-index:30; flex-direction:row; gap:8px;
-      padding:8px; background:var(--paper); border:1px solid var(--stroke); border-radius:10px; box-shadow:0 12px 30px rgba(0,0,0,.22); }
+      padding:9px; background:var(--paper); border:1px solid var(--stroke); border-radius:14px; box-shadow:0 16px 40px rgba(0,0,0,.24); }
     .kicons.open{ display:flex; }
     .kicons .gear{ width:42px; height:42px; }
   }
@@ -491,30 +495,46 @@
   .section{ border-top:1px solid #ececec; }
   .section:first-child{ border-top:0; }
   .sec-head{ width:100%; text-align:left; background:none; border:0; cursor:pointer;
-    font-family:var(--font); font-size:14px; letter-spacing:.14em; text-transform:uppercase; color:#222;
-    padding:13px 0 11px; display:flex; align-items:center; justify-content:space-between; }
-  .sec-head::after{ content:"+"; font-size:16px; color:#aaa; }
-  .section.open .sec-head::after{ content:"\2212"; }
+    font-family:var(--font); font-size:16px; letter-spacing:.10em; text-transform:uppercase; color:#1b1b19;
+    padding:16px 4px 10px; display:flex; align-items:center; justify-content:space-between; }
+  .sec-head::after{ content:"\203A"; font-size:20px; color:#bdbcb6; font-weight:400; transition:transform .2s ease; line-height:0; }
+  .section.open .sec-head::after{ transform:rotate(90deg); }
   .sec-body{ display:none; padding-bottom:4px; }
   .section.open .sec-body{ display:block; }
-  .group{ margin-bottom:20px; }
-  .group > label{ display:block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#aaa; margin-bottom:10px; }
+  /* Bonjourr-inspired "param" card: related controls grouped in a soft rounded surface */
+  .group{ background:#fff; border:1px solid rgba(0,0,0,.07); border-radius:16px; padding:3px 15px; margin-bottom:11px;
+    box-shadow:0 1px 2px rgba(0,0,0,.035); }
+  .group > label{ display:block; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:#a7a6a1; padding:13px 1px 1px; margin:0; }
   .swatches{ display:flex; gap:8px; flex-wrap:wrap; }
   .swatch{ width:28px; height:28px; border-radius:50%; cursor:pointer; border:2px solid #fff; box-shadow:0 0 0 1px #ddd; transition:transform .12s; }
   .swatch:hover{ transform:scale(1.12); }
   .swatch.active{ box-shadow:0 0 0 2px #222; }
-  .row{ display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
-  .row label{ font-size:13px; color:#666; }
+  .row{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin:0; padding:11px 1px; }
+  .row + .row{ border-top:1px solid rgba(0,0,0,.06); }
+  .row label{ font-size:13.5px; letter-spacing:.01em; color:#393835; }
+  /* even internal spacing inside param cards */
+  .group > *:last-child{ margin-bottom:0 !important; }
+  .group .swatches{ padding:7px 0 12px; }
+  .group .themes{ padding-bottom:5px; }
+  .group .group input[type=range], .group > input[type=range]{ margin-bottom:10px; }
   input[type=color]{ width:38px; height:24px; border:1px solid #ddd; padding:0; background:none; cursor:pointer; border-radius:5px; }
   #configFontSelect{ font-family:var(--font); font-size:14px; padding:5px 8px; border:1px solid #ccc; background:#fff; color:#222; max-width:150px; border-radius:6px; }
   .group input[type=range]{ width:100%; accent-color:#2a2a2a; cursor:pointer; }
   .rlabel{ display:flex; justify-content:space-between; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:#aaa; margin-bottom:10px; }
   .rlabel .rv{ color:#666; }
   .tgl{ font-family:var(--font); font-size:13px; letter-spacing:.10em; text-transform:uppercase;
-    border:1px solid #ccc; background:#fafafa; color:#888; padding:6px 13px; cursor:pointer; min-width:58px;
-    border-radius:6px; transition:.12s ease; }
-  .tgl:hover{ border-color:#999; color:#444; }
-  .tgl.on{ background:#2a2a2a; border-color:#2a2a2a; color:#fff; }
+    border:1px solid #d2d1cc; background:#fff; color:#8a8984; padding:6px 15px; cursor:pointer; min-width:56px;
+    border-radius:999px; transition:.15s ease; }
+  .tgl:hover{ border-color:#a8a7a2; color:#444; }
+  .tgl.on{ background:var(--accent); border-color:var(--accent); color:#fff; }
+  /* iOS-style switch — a button toggled via .on; its On/Off text is hidden, a knob slides instead */
+  .tgl-switch{ flex:none; width:44px; height:26px; min-width:0; padding:0; border:0; cursor:pointer;
+    border-radius:999px; background:#d6d5d1; position:relative; transition:background .22s ease;
+    font-size:0; color:transparent; overflow:hidden; }
+  .tgl-switch::after{ content:""; position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:50%;
+    background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.28); transition:transform .22s cubic-bezier(.3,1.25,.4,1); }
+  .tgl-switch.on{ background:var(--accent); }
+  .tgl-switch.on::after{ transform:translateX(18px); }
   .themes{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
   .theme-btn{ border:1px solid #e3e1dc; background:#fafafa; cursor:pointer; padding:9px 11px; font-size:14px;
     text-align:left; display:flex; align-items:center; gap:8px; font-family:var(--font); letter-spacing:.04em;
@@ -636,11 +656,12 @@
   #catColor{ width:38px; height:auto; padding:0; border:1px solid #ddd; background:none; cursor:pointer; flex:none; }
 
   /* ---------------- event editor modal ---------------- */
-  .modal-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:60; padding:16px;
+  .modal-backdrop{ position:fixed; inset:0; background:rgba(20,18,14,.42); z-index:60; padding:16px;
+    -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);
     display:none; align-items:center; justify-content:center; }
   .modal-backdrop.open{ display:flex; }
   .evdlg{ width:min(460px,96vw); max-height:92vh; overflow-y:auto; background:var(--paper); color:var(--ink);
-    border:1px solid var(--ink); border-radius:8px; box-shadow:0 30px 90px rgba(0,0,0,.45); }
+    border:1px solid color-mix(in srgb, var(--ink) 18%, transparent); border-radius:16px; box-shadow:0 30px 90px rgba(0,0,0,.45); }
   .evdlg-head{ display:flex; align-items:center; justify-content:space-between; padding:15px 18px 9px;
     font-family:var(--font); font-size:12px; letter-spacing:.22em; text-transform:uppercase;
     color:color-mix(in srgb, var(--accent) 66%, transparent); }
@@ -854,10 +875,10 @@
       <button class="sec-head" type="button">Experience</button>
       <div class="sec-body">
         <div class="group">
-          <div class="row"><label>Sound</label><button class="tgl on" id="tSound">On</button></div>
+          <div class="row"><label>Sound</label><button class="tgl-switch on" id="tSound" aria-label="Sound on/off">On</button></div>
           <div class="rlabel" style="margin-top:8px"><span>Volume</span><span class="rv" id="cVolVal">100%</span></div>
           <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.9">
-          <div class="row" style="margin-top:12px"><label>Temperature</label><button class="tgl" id="tempUnitBtn">°F</button></div>
+          <div class="row"><label>Temperature</label><button class="tgl" id="tempUnitBtn">°F</button></div>
           <div class="row"><label>Clock</label><button class="tgl on" id="clockModeBtn">12H</button></div>
           <div class="rlabel" style="margin-top:12px"><span>Weather location</span><span class="rv" id="zipStatus">Henderson, NV</span></div>
           <div class="saverow">
@@ -1856,11 +1877,25 @@
         mcGrid.appendChild(e);
       }
     }
+    // anchor the popup just under the calendar icon, right-aligned to it, clamped on-screen
+    function positionNearTrigger(){
+      const r = trigger.getBoundingClientRect();
+      if(!r.width && !r.height) return;                 // icon hidden (mobile menu closed) — keep last position
+      const w = minical.offsetWidth || 272;
+      const left = Math.min(Math.max(8, r.right - w), window.innerWidth - w - 8);
+      minical.style.position = 'fixed';
+      minical.style.margin = '0';
+      minical.style.top  = Math.round(r.bottom + 8) + 'px';
+      minical.style.left = Math.round(left) + 'px';
+      minical.style.right = 'auto';
+    }
     function open(){
       const p = parts(Math.round(position));
       viewY = p.y; viewM = p.m; render();
-      minical.classList.add('open');
+      minical.classList.add('open');     // show first so we can measure its width
+      positionNearTrigger();
     }
+    window.addEventListener('resize', ()=>{ if(minical.classList.contains('open')) positionNearTrigger(); });
     minical.querySelectorAll('.mc-nav').forEach(b=>{
       b.addEventListener('click', e=>{
         e.stopPropagation();
